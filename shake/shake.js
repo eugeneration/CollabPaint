@@ -90,6 +90,9 @@
                 sumy += deltaY;
                 sumz += deltaZ;
                 count++;
+                
+                var power = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+
                 if (current.z > 4) {
                     text2 = "LEFT SLASH!";
                 }
@@ -100,8 +103,9 @@
                     text2 = "FORWARD SLASH!";
                 }
                 
-                $(".text").text("" + (sumx/count) + "\n" + (sumy/count) + "\n" + (sumz/count) + "\n\n" + current.x  + "\n" + current.y + "\n" + current.z + "\n" + text2 + "\n");
-	            window.dispatchEvent(this.event);
+                $(".text").text("" + (sumx/count) + "\n" + (sumy/count) + "\n" + (sumz/count) + "\n\n" + current.x  + "\n" + current.y + "\n" + current.z + "\n" + text2 + "\n power " + power);
+	            this.event.data = {'power':power};
+                window.dispatchEvent(this.event);
 				this.lastTime = new Date(); 
             }
 		}

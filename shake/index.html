@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<activity android:name="MainActivity" android:configChanges="keyboardHidden|orientation">
 <title>Shake.js</title>
 <style type="text/css">
 body {
@@ -38,18 +39,18 @@ body {
 <div class="text"></div>
 <script src="jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="shake.js"></script>
-<script src="splat.js";
+<script src="splat.js"></script>
 <script type="text/javascript">
-window.onload = function() {
-
-	window.addEventListener('shake', shakeEventDidOccur, false);
+$( function() {
+    console.log("blahblah");
+    canvas.splat(Math.random(), Math.random(), (Math.random()+.1)*50, .5, .5);
+    window.addEventListener('shake', shakeEventDidOccur, false);
 	
 	//define a custom method to fire when shake occurs.
-	function shakeEventDidOccur () {
-	
-		canvas.splat(Math.random(), Math.random(), (Math.random()+.1)*50, .5, .5);
+	function shakeEventDidOccur (e) {
+		canvas.splat(Math.random(), Math.random(), e.data.power, .5, .5);
 	}
-};
+});
 </script>
 </body>
 </html>

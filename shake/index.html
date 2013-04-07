@@ -12,13 +12,22 @@ body {
 	font: 1em/1.3em "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif; /* 16px / 21px */
 	text-shadow: rgba(255,255,255,0.8) 0 1px 0;
 	text-align: center;
+    margin: 0;
+    padding: 0;
 }
+    
+    #canvas {
+        position:absolute;
+        top: 0;
+        left:0;
+    }
+
 </style>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="shake.js"></script>
 </head>
 <body>
 
+<canvas id="canvas"></canvas>
+    
 <h1>Shake to Undo</h1>
 <h2>for your mobile web app</h2>
 <p>Shake your iPhone/iPad to see a custom action.</p>
@@ -27,6 +36,9 @@ body {
 <p><a href="http://dev.w3.org/geo/api/spec-source-orientation">W3C DeviceOrientation Event Specification</a></p>
 
 <div class="text"></div>
+<script src="jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="shake.js"></script>
+<script src="splat.js";
 <script type="text/javascript">
 window.onload = function() {
 
@@ -35,10 +47,7 @@ window.onload = function() {
 	//define a custom method to fire when shake occurs.
 	function shakeEventDidOccur () {
 	
-		//put your own code here etc.
-	//	if (confirm("Undo?")) {
-
-	//	}
+		canvas.splat(Math.random(), Math.random(), (Math.random()+.1)*50, .5, .5);
 	}
 };
 </script>

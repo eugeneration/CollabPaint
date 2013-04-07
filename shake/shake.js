@@ -16,7 +16,7 @@
 		this.hasDeviceMotion = 'ondevicemotion' in window;
 
 		//default velocity threshold for shake to register
-		this.threshold = 15;
+		this.threshold = 5;
 
 		//use date to prevent multiple shakes firing	
 		this.lastTime = new Date();
@@ -53,6 +53,9 @@
 		if (this.hasDeviceMotion) { window.removeEventListener('devicemotion', this, false); }
 		this.reset();
 	};
+    
+
+    var sumx = 0.0, sumy = 0.0, sumz = 0.0, count = 0;
 
 	//calculates if shake did occur
 	Shake.prototype.devicemotion = function (e) {
@@ -65,8 +68,7 @@
 			deltaZ = 0;
 
 		if ((this.lastX === null) && (this.lastY === null) && (this.lastZ === null)) {
-
-			this.lastX = current.x;
+            this.lastX = current.x;
 			this.lastY = current.y;
 			this.lastZ = current.z;
 			return;
@@ -83,9 +85,25 @@
 			timeDifference = currentTime.getTime() - this.lastTime.getTime();
 
 			if (timeDifference > 1000) {
-				window.dispatchEvent(this.event);
-				this.lastTime = new Date();
-			}
+                var text2;
+                sumx += deltaX;
+                sumy += deltaY;
+                sumz += deltaZ;
+                count++;
+                if (current.z > 4) {
+                    text2 = "LEFT SLASH!";
+                }
+                else if (current.z < -3) {
+                    text2 = "RIGHT SLASH!";
+                }
+                else {
+                    text2 = "FORWARD SLASH!";
+                }
+                
+                $(".text").text("" + (sumx/count) + "\n" + (sumy/count) + "\n" + (sumz/count) + "\n\n" + current.x  + "\n" + current.y + "\n" + current.z + "\n" + text2 + "\n");
+	            window.dispatchEvent(this.event);
+				this.lastTime = new Date(); 
+            }
 		}
 	};
 
